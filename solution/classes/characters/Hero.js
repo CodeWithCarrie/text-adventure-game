@@ -15,7 +15,7 @@ export default class Hero extends Character {
         this.maxHearts = 3;
         this.currentHearts = 3;
         this.weapon = null;
-        this.armorLevel = 1;
+        this.armorLevel = 1; // not used but here for inspiration!
     }
 
     equipWeapon(weapon) {
@@ -36,10 +36,8 @@ export default class Hero extends Character {
         if (this.rupees >= itemObj.price) {
             this.rupees -= itemObj.price;
             this.addItemToInventory(itemObj.name);
-            return true;
         } else {
             log.alert(`Link only has ${this.rupees} rupees. ${itemObj.name} costs ${itemObj.price}!`);
-            return false;
         }
     }
 
@@ -61,12 +59,10 @@ export default class Hero extends Character {
     }
 
     dodgeEnemy(enemyType, numEnemies) {
-        let hitsTaken = 0;
         for (let i = 0; i < numEnemies; i++) {
             let chance = getRandomInRange(10);
             if (chance < 3) { // 30% hit chance
                 this.currentHearts -= 0.5;
-                hitsTaken++;
                 log.hit(`Hit! Link loses 0.5 hearts.`);
                 log.healthStatus(`${this.currentHearts} remaining`);
                 if (this.currentHearts <= 0) {
