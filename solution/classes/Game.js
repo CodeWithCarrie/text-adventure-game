@@ -50,7 +50,7 @@ export default class Game {
 		log.dividerTop();
 		log.title("          🛡️  THE LEGEND OF ZELDA: HUMBLE BEGINNINGS  🛡️");
 		log.divider();
-        log.narrative(`It's 1986, and the kingdom of Hyrule is in chaos.
+		log.narrative(`It's 1986, and the kingdom of Hyrule is in chaos.
 The evil prince of darkness, Ganon, has stolen the Triforce of
 Power and is holding Princess Zelda captive in Death Mountain.
 Link, you must grab a sword, defeat his minions, and prepare
@@ -62,7 +62,7 @@ to rescue the Princess! Only then can order be restored to Hyrule.
 	}
 
 	handleCombat(enemyType, count) {
-        let choosing = true;
+		let choosing = true;
 		while (choosing) {
 			log.instruction(`Will Link FIGHT or RUN?: `);
 			let response = readlineSync.question("").toUpperCase();
@@ -70,12 +70,12 @@ to rescue the Princess! Only then can order be restored to Hyrule.
 			if (response === "FIGHT" || response === "F") {
 				const survived = this.player.fightEnemy(enemyType, count);
 				if (!survived) this.isGameOver = true;
-                choosing = false;
+				choosing = false;
 			} else if (response === "RUN" || response === "R") {
 				log.narrative(`💨 Link runs through the danger zone, trying to dodge the attacks!`);
 				const survived = this.player.dodgeEnemy(enemyType, count);
 				if (!survived) this.isGameOver = true;
-                choosing = false;
+				choosing = false;
 			} else {
 				log.alert("Invalid action. Type 'FIGHT' or 'RUN'.");
 			}
@@ -118,6 +118,8 @@ to rescue the Princess! Only then can order be restored to Hyrule.
 			log.instruction(encounter.prompt);
 			let choice = readlineSync.question("").toUpperCase();
 			if (choice === "Y") {
+                log.describeNPC(this.describe());
+                log.dialogue(this.speak());
                 encounter.npc.displayItemsForSale();
 				log.moneyStatus(`Link currently has ${this.player.rupees} rupees.`);
 				this.handlePurchase(encounter.npc);
@@ -131,9 +133,11 @@ to rescue the Princess! Only then can order be restored to Hyrule.
 		if (this.currentStep >= this.encounters.length && !this.isGameOver) {
 			log.dividerTop();
 			log.success("CONGRATULATIONS! Link survived his first encounters!\n");
-            if (this.player.items.length > 0 || this.player.rupees > 0) {
-                log.narrative("With his loot secure, he's ready to continue his journey to Death Mountain!");
-            }
+			if (this.player.items.length > 0 || this.player.rupees > 0) {
+				log.narrative(
+					"With his loot secure, he's ready to continue his journey to Death Mountain!"
+				);
+			}
 			log.divider();
 			this.isGameOver = true;
 		}

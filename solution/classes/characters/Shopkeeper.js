@@ -23,8 +23,6 @@ export default class Shopkeeper extends Character {
         }
 
 	displayItemsForSale() {
-		log.describeNPC(this.describe());
-		log.dialogue(this.speak());
 		log.dividerTop();
 		this.itemsForSale.forEach((item, index) => {
 			console.log(`[${index + 1}] ${item.name} - 💰 ${item.price} Rupees`);

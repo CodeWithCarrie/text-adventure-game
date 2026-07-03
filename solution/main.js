@@ -10,14 +10,14 @@ import Game from "./classes/Game.js";
 
 function runProgram() {
 	// Instantiate our unified modular controller engine
-	const ZeldaDemo = new Game();
+	const zeldaGame = new Game();
 
 	// Run introduction text panel sequence
-	ZeldaDemo.displayIntroduction();
+	zeldaGame.displayIntroduction();
 
 	// CORE GAME INTERACTION LOOP: Keeps turning until conditions flags drop
-	while (!ZeldaDemo.isGameOver) {
-		ZeldaDemo.playNextTurn();
+	while (!zeldaGame.isGameOver) {
+		zeldaGame.playNextTurn();
 	}
 
 	console.log("\n----------------------- Thanks for playing! ----------------------\n");
